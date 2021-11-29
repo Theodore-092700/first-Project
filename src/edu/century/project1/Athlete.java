@@ -34,16 +34,23 @@ public Athlete(String name, Country country, Sport sport, int skill, int medalCo
  * Default constructor when no agruments are passed 
  */
 public Athlete() {
-	name = "No name on file";
-	sport = Sport.selectRandomSport();
-	country = Country.selectRandomCountry();
+	this.name = "DEFAULT";
+	this.sport = Sport.selectRandomSport();
+	this.country = Country.selectRandomCountry();
 	skill = 0;
 	medalCounter = 0;
 }
 
 public void setName(String name) {
-	this.name = name;
+	if (name.length() > 1) {
+		this.name = name;
+	}
+	else {
+		this.name = "DEFAULT";
+		
+	}
 }
+	
 public void setCountry(Country country) {
 	this.country = country;
 }
@@ -79,7 +86,7 @@ public int getMedals() {
 
 @Override
 public String toString() {
-	return "Name: " + name + " Country: " + country + " Sport: " + sport + " Skill: " + skill + " Gold medals: " + medalCounter;
+	return "Name: " + getName() + " Country: " + getCountry() + " Sport: " + getSport() + " Skill: " + getSkill() + " Gold medals: " + getMedals();
 	
 }
 
