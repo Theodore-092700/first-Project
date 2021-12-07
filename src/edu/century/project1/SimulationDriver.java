@@ -8,16 +8,16 @@ import java.util.Random;
  */
 public class SimulationDriver {
 	public static void main(String[] args) {
-		
-		Sport s1 = Sport.selectRandomSport();
+		System.out.println("Driver needs to be reworked completely!!");
+		/*
 		Country c1 = Country.selectRandomCountry();
 		Country c2 = Country.selectRandomCountry();
 		Country c3 = Country.selectRandomCountry();
 		Venue v = Venue.selectRandomVenue();
 		
-		Athlete a1 = new Athlete("Thommas Richard",c1,s1, getRandomSkillLevel(), 0);
-		Athlete a2 = new Athlete("Ben Cheney",c2,s1, getRandomSkillLevel(), 0);
-		Athlete a3 = new Athlete("Austin Klecker",c3,s1, getRandomSkillLevel(), 0);
+		Athlete a1 = new Athlete("Thommas Richard",c1, getRandomSkillLevel(), 0);
+		Athlete a2 = new Athlete("Ben Cheney",c2, getRandomSkillLevel(), 0);
+		Athlete a3 = new Athlete("Austin Klecker",c3, getRandomSkillLevel(), 0);
 		
 		Athlete[] athletes = new Athlete[3];
 		athletes[0] = a1;
@@ -25,7 +25,7 @@ public class SimulationDriver {
 		athletes[2] = a3;
 		
 		
-		Event e = new Event("First Event", v, s1, athletes);
+		Event e = new Event("First Event", v, athletes);
 
 		System.out.println(e);
 		System.out.println(e.compete());
@@ -173,5 +173,6 @@ public class SimulationDriver {
 		Random rand = new Random();
 		int skillLevel = rand.nextInt(10)+1;
 		return skillLevel;
+	}*/
 	}
 }

@@ -12,7 +12,7 @@ import java.util.Random;
 public class Event {
 private String name;
 Venue venue;
-Sport sport;
+
 Athlete [] athletes;
 int maxSkillIndex = 0;
 
