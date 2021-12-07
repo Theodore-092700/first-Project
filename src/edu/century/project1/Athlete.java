@@ -1,31 +1,28 @@
 package edu.century.project1;
 /**
- * This class outlines the Athlete object and gives information on their: 
- * name, country, sport, skill level, and number of gold medals won
+ * This class outlines the abstract Athlete class and gives information on their: 
+ * name, country, skill level, and number of gold medals won
  * this outline is based for the olympic athletes competeing
  * @author Theodore Thorpe
  * @version 1.0
  * CSCI 1082.70
  * Professor: Lisa Minogue
  */
-public class Athlete {
+public abstract class Athlete {
 private String name;
 private Country country;
-private Sport sport;
-private int skill = 0;
+protected double skill = 0;
 private int medalCounter;
 
 /**
  * Full parameter constructor
  * @param name - name of athlete of type String
  * @param country - country of athlete of type Country enum
- * @param sport - athlete's sport of type Sport enum
  * @param skill - athlete's skill of type Int
  */
-public Athlete(String name, Country country, Sport sport, int skill, int medalCounter) {
+public Athlete(String name, Country country, double skill, int medalCounter) {
 	setName(name);
 	setCountry(country);
-	setSport(sport);
 	setSkill(skill);
 	setMedals(medalCounter);
 	
@@ -35,7 +32,6 @@ public Athlete(String name, Country country, Sport sport, int skill, int medalCo
  */
 public Athlete() {
 	this.name = "DEFAULT";
-	this.sport = Sport.selectRandomSport();
 	this.country = Country.selectRandomCountry();
 	skill = 0;
 	medalCounter = 0;
@@ -54,11 +50,13 @@ public void setName(String name) {
 public void setCountry(Country country) {
 	this.country = country;
 }
-public void setSport(Sport sport) {
-	this.sport = sport;
-}
-public void setSkill(int skill) {
-	this.skill = this.skill + skill;
+
+public void setSkill(double skill) {
+    if (skill >=0 && skill <= 10) {
+        this.skill = skill;
+    } else {
+        this.skill = 0;
+    }    
 }
 public void setMedals(int medalCounter) {
 	this.medalCounter = medalCounter;
@@ -73,12 +71,9 @@ public String getName() {
 public Country getCountry() {
 	return country;
 }
-public Sport getSport() {
-	return sport;
-}
-public int getSkill() {
-	return skill;
-}
+
+public abstract double getSkill();
+
 public int getMedals() {
 	return medalCounter;
 }
@@ -86,7 +81,7 @@ public int getMedals() {
 
 @Override
 public String toString() {
-	return "Name: " + getName() + " Country: " + getCountry() + " Sport: " + getSport() + " Skill: " + getSkill() + " Gold medals: " + getMedals();
+	return "Name: " + getName() + " Country: " + getCountry() + " Skill: " + getSkill() + " Gold medals: " + getMedals();
 	
 }
 
@@ -101,8 +96,7 @@ public boolean equals(Object otherObj) {
    else {
       Athlete otherAthlete = (Athlete)otherObj;
       return (this.name.equals(otherAthlete.getName()) &&
-             (this.country == otherAthlete.getCountry()) &&
-             (this.sport == otherAthlete.getSport()) && 
+             (this.country == otherAthlete.getCountry()) && 
              (this.skill == otherAthlete.getSkill()) &&
              (this.medalCounter == otherAthlete.getMedals()));
    }
