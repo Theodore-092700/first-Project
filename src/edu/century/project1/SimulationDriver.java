@@ -11,7 +11,10 @@ import java.util.Scanner;
  *
  */
 public class SimulationDriver {
-	
+	/**
+	 * reads names from the Names.txt file and returns a randomly selected name
+	 * @return name - of type String
+	 */
 	public static String getRandomName() {
 		
 		try {
@@ -22,7 +25,6 @@ public class SimulationDriver {
 				names.add(file.nextLine());
 			}
 			Random rand = new Random();
-			
 			String name =  names.get(rand.nextInt(names.size()));
 			file.close();
 			return name;
