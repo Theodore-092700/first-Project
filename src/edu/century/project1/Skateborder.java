@@ -12,17 +12,17 @@ import java.util.Random;
 public class Skateborder extends Athlete {
 	private int style;
 	
-	public Skateborder(int style) {
-		super();
+	public Skateborder(String name, Country country, double skill, int medalCounter,int style) {
+		super(name, country, skill, medalCounter);
 		setStyle(style);
 	}
 	
 	public void setStyle(int style) {
+		Random rand = new Random();
+		style = rand.nextInt(10);
 		this.style = style;
 	}
 	public int getStyle() {
-		Random rand = new Random();
-		style = rand.nextInt(10);
 		return style;
 	}
 	@Override
@@ -32,10 +32,7 @@ public class Skateborder extends Athlete {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " Style: " + style;
+		return super.toString() + " Style: " + getStyle();
 	}
-	
-	
-	
 	
 }

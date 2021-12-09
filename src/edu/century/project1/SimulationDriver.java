@@ -1,5 +1,9 @@
 package edu.century.project1;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 
@@ -7,8 +11,31 @@ import java.util.Random;
  *
  */
 public class SimulationDriver {
+	
+	public static String getRandomName() {
+		
+		try {
+			
+			ArrayList<String> names = new ArrayList<String>();
+			Scanner file = new Scanner(new FileInputStream("Names.txt"));
+			while (file.hasNextLine()) {
+				names.add(file.nextLine());
+			}
+			Random rand = new Random();
+			
+			String name =  names.get(rand.nextInt(names.size()));
+			file.close();
+			return name;
+		}catch (FileNotFoundException e ) {
+			return "file not found";
+		}
+			
+		}
+	
 	public static void main(String[] args) {
 		System.out.println("Driver needs to be reworked completely!!");
+		Athlete a1 = new Skateborder(getRandomName(),Country.selectRandomCountry(),1,2,0);
+		System.out.println(a1.toString());
 		/*
 		Country c1 = Country.selectRandomCountry();
 		Country c2 = Country.selectRandomCountry();

@@ -23,8 +23,7 @@ int maxSkillIndex = 0;
  * @param sport - Sport name of type Sport enum
  * @param athletes - array of all athletes of type Athlete[]
  */
-public Event(String name, Venue venue, Sport sport, Athlete[] athletes) {
-	setSport(sport);
+public Event(String name, Venue venue, Athlete[] athletes) {
 	setName(name);
 	setVenue(venue);
 	setAthlete(athletes);
@@ -37,18 +36,12 @@ public Event(String name, Venue venue, Sport sport, Athlete[] athletes) {
 public Event() {
 	name = "Default";
 	venue = Venue.selectRandomVenue();
-	sport = Sport.selectRandomSport();
+	
 	
 	
 }
 
-/**
- * updates Event's sport
- * @param sport - sport of the event
- */
-public void setSport(Sport sport) {
-	this.sport = sport;
-}
+
 
 /**
  * updates the name of the event
@@ -87,9 +80,7 @@ public void setAthlete(Athlete[] athletes) {
  * returns the sport being played
  * @return sport of type Sport
  */
-public Sport getSport() {
-	return sport;
-}
+
 /**
  * returns the name of the event
  * @return name of type String
@@ -134,7 +125,7 @@ public String  getCompetitors() {
  */
 public Athlete compete() {
 	System.out.println("Let the games begin!!!\nPlayers competing:");
-	int maxSkill = 0;
+	double maxSkill = 0;
 	for (int i = 0; i < athletes.length; ++i) {
 		
 		System.out.println(athletes[i]);
@@ -161,7 +152,7 @@ public Athlete compete() {
 
 @Override
 public String toString() {
-	return "Event: " + getName() + " Venue: " + getVenue() + " Sport: " + getSport() + " Competing Athletes: \n" + getCompetitors();
+	return "Event: " + getName() + " Venue: " + getVenue() + " Competing Athletes: \n" + getCompetitors();
 }
 
 @Override
@@ -175,8 +166,7 @@ public boolean equals(Object otherObj) {
    else {
       Event otherEvent = (Event)otherObj;
       return (this.name.equals(otherEvent.getName()) &&
-             (this.venue == otherEvent.getVenue()) &&
-             (this.sport == otherEvent.getSport()) && 
+             (this.venue == otherEvent.getVenue()) && 
              (this.athletes == otherEvent.getAthletes()));
    }
    
