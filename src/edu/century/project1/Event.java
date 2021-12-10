@@ -1,6 +1,7 @@
 package edu.century.project1;
 import java.util.Random;
-
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 /**
  * This Class outlines the Event object and provides the frame for the athletes 
  * to compete and determine the winner as well as the venue and name of the event they will be competing for!!
@@ -13,7 +14,7 @@ public class Event {
 private String name;
 Venue venue;
 Sport sport;
-Athlete [] athletes;
+ArrayList<Athlete>  athletes = new ArrayList<Athlete>();
 int maxSkillIndex = 0;
 
 /**
@@ -23,11 +24,11 @@ int maxSkillIndex = 0;
  * @param sport - Sport name of type Sport enum
  * @param athletes - array of all athletes of type Athlete[]
  */
-public Event(String name, Venue venue, Sport sport, Athlete[] athletes) {
-	setSport(sport);
+public Event(String name, Venue venue,Sport sport,ArrayList<Athlete>  athletes) {
 	setName(name);
 	setVenue(venue);
 	setAthlete(athletes);
+	setSport(sport);
 
 	
 }
@@ -41,25 +42,29 @@ public Event() {
 	
 	
 }
-
-/**
- * updates Event's sport
- * @param sport - sport of the event
- */
 public void setSport(Sport sport) {
-	this.sport = sport;
+	try {
+		this.sport = sport;
+	}catch(InputMismatchException e) {
+		System.out.println("Event sport is not of type Sport!");
+	}
 }
+
 
 /**
  * updates the name of the event
  * @param name - name of the event
  */
 public void setName(String name) {
-	if(name.length() > 0) {
-		this.name = name;
-	}
-	else {
-		this.name = "Default";
+	try {
+		if (name.length() > 1) {
+			this.name = name;
+		}
+		else {
+			this.name = "DEFAULT";
+		}
+	}catch(InputMismatchException e) {
+		System.out.println("Athlete name is not of type String!");
 	}
 }
 /**
@@ -67,18 +72,26 @@ public void setName(String name) {
  * @param venue - venue of the event
  */
 public void setVenue(Venue venue) {
-	this.venue = venue;
+	try {
+		this.venue = venue;
+	}catch (InputMismatchException e) {
+		System.out.println("Event venue is not of Type Venue!");
+	}
 }
 /**
  * updates the athletes competing and makes sure there is at least one athlete competing
  * @param athletes - array of athletes
  */
-public void setAthlete(Athlete[] athletes) {
-	if (athletes.length > 0) {
-		this.athletes = athletes;
-	}
-	else {
-		System.out.println("Competitions need at minimum One athlete to compete!!!");
+public void setAthlete(ArrayList<Athlete>  athletes) {
+	try {
+		if (athletes.size() > 0) {
+			this.athletes = athletes;
+		}
+		else {
+			System.out.println("Competitions need at minimum One athlete to compete!!!");
+		}
+	}catch (InputMismatchException e) {
+		System.out.println("Argument passed to event athletes is not an Arraylist!");
 	}
 }
 
@@ -108,7 +121,7 @@ public Venue getVenue() {
  * returns the reference of the array of Athlete objects
  * @return athletes of type Athletes[]
  */
-public Athlete[] getAthletes() {
+public ArrayList<Athlete>  getAthletes() {
 	
 	return athletes;
 	
@@ -119,8 +132,8 @@ public Athlete[] getAthletes() {
  */
 public String  getCompetitors() {
 	String competitors = "";
-	for (int i = 0; i < athletes.length; ++i) {
-		competitors = competitors + athletes[i] + "\n";
+	for (int i = 0; i < athletes.size(); ++i) {
+		competitors = competitors + athletes.get(i) + "\n";
 		}
 	return competitors;
 	}
@@ -134,34 +147,30 @@ public String  getCompetitors() {
  */
 public Athlete compete() {
 	System.out.println("Let the games begin!!!\nPlayers competing:");
-	int maxSkill = 0;
-	for (int i = 0; i < athletes.length; ++i) {
+	double maxSkill = 0;
+	for (int i = 0; i < athletes.size(); ++i) {
 		
-		System.out.println(athletes[i]);
+		System.out.println(athletes.get(i));
 		Random luckOfDraw = new Random();
 		int randInt = luckOfDraw.nextInt(50)+1;
-		athletes[i].setSkill(randInt);
+		athletes.get(i).setSkill(randInt);
 		
 		
-		if (athletes[i].getSkill() > maxSkill) {
-			maxSkill = athletes[i].getSkill();
+		if (athletes.get(i).getSkill() > maxSkill) {
+			maxSkill = athletes.get(i).getSkill();
 			maxSkillIndex = i;
 		}
 	}
-	
-	
-	
-	
-	athletes[maxSkillIndex].addMedals();
+	athletes.get(maxSkillIndex).addMedals();
 	System.out.println("The Winner is...");
-	return athletes[maxSkillIndex];
+	return athletes.get(maxSkillIndex);
 	
 }
 
 
 @Override
 public String toString() {
-	return "Event: " + getName() + " Venue: " + getVenue() + " Sport: " + getSport() + " Competing Athletes: \n" + getCompetitors();
+	return "Event: " + getName() + " Venue: " + getVenue() +" Sport: "+ getSport() + " Competing Athletes: \n" + getCompetitors();
 }
 
 @Override
@@ -175,8 +184,8 @@ public boolean equals(Object otherObj) {
    else {
       Event otherEvent = (Event)otherObj;
       return (this.name.equals(otherEvent.getName()) &&
-             (this.venue == otherEvent.getVenue()) &&
-             (this.sport == otherEvent.getSport()) && 
+             (this.venue == otherEvent.getVenue()) && 
+             (this.sport == otherEvent.getSport()) &&
              (this.athletes == otherEvent.getAthletes()));
    }
    

@@ -1,5 +1,9 @@
 package edu.century.project1;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 
@@ -7,17 +11,79 @@ import java.util.Random;
  *
  */
 public class SimulationDriver {
-	public static void main(String[] args) {
+	private static final int EVENTNAME = 0;
+	private static final int EVENTVENUE = 1;
+	private static final int EVENTSPORT = 2;
+	private static String ename;
+	private static String evenue;
+	private static String esport;
+	/**
+	 * reads names from the Names.txt file and returns a randomly selected name
+	 * @return name - of type String
+	 */
+	public static void readEventInfo(String name, String venue,String sport) {
+		try {
+			Scanner file = new Scanner (new FileInputStream("events.txt"));
+			String line = file.nextLine();
+			String[] eventString = line.split("%");
+			name = eventString[EVENTNAME];
+			ename = name;
+			
+			venue = eventString[EVENTVENUE];
+			evenue = venue;
+			sport = eventString[EVENTSPORT];
+			esport = sport;
+			
+	}catch (FileNotFoundException e ) {
+		System.out.println("File not found");
+	}
+	}
+	public static String getRandomName() {
 		
-		Sport s1 = Sport.selectRandomSport();
+		try {
+			
+			ArrayList<String> names = new ArrayList<String>();
+			Scanner file = new Scanner(new FileInputStream("Names.txt"));
+			while (file.hasNextLine()) {
+				names.add(file.nextLine());
+			}
+			Random rand = new Random();
+			String name =  names.get(rand.nextInt(names.size()));
+			file.close();
+			return name;
+		}catch (FileNotFoundException e ) {
+			return "file not found";
+		}
+			
+		}
+	public static int getRandomSkillLevel() {
+		Random rand = new Random();
+		int skillLevel = rand.nextInt(10)+1;
+		return skillLevel;
+		}
+	public static void main(String[] args) {
+		System.out.println("Driver needs to be reworked completely!!");
+		
+		
+		
+		Athlete a1 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		System.out.println(a1.toString());
+		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
+		athletes.add(a1);
+		readEventInfo(ename,evenue,esport);
+		Event e  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),athletes);
+		System.out.println(e.toString());
+		System.out.println(e.compete());
+		
+		/*
 		Country c1 = Country.selectRandomCountry();
 		Country c2 = Country.selectRandomCountry();
 		Country c3 = Country.selectRandomCountry();
 		Venue v = Venue.selectRandomVenue();
 		
-		Athlete a1 = new Athlete("Thommas Richard",c1,s1, getRandomSkillLevel(), 0);
-		Athlete a2 = new Athlete("Ben Cheney",c2,s1, getRandomSkillLevel(), 0);
-		Athlete a3 = new Athlete("Austin Klecker",c3,s1, getRandomSkillLevel(), 0);
+		Athlete a1 = new Athlete("Thommas Richard",c1, getRandomSkillLevel(), 0);
+		Athlete a2 = new Athlete("Ben Cheney",c2, getRandomSkillLevel(), 0);
+		Athlete a3 = new Athlete("Austin Klecker",c3, getRandomSkillLevel(), 0);
 		
 		Athlete[] athletes = new Athlete[3];
 		athletes[0] = a1;
@@ -25,7 +91,7 @@ public class SimulationDriver {
 		athletes[2] = a3;
 		
 		
-		Event e = new Event("First Event", v, s1, athletes);
+		Event e = new Event("First Event", v, athletes);
 
 		System.out.println(e);
 		System.out.println(e.compete());
@@ -168,10 +234,7 @@ public class SimulationDriver {
 		
 		
 		
-	}
-	public static int getRandomSkillLevel() {
-		Random rand = new Random();
-		int skillLevel = rand.nextInt(10)+1;
-		return skillLevel;
+	}*/
+	
 	}
 }
