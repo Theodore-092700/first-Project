@@ -6,9 +6,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * 
+ * This is the Driver class that creates and runs the objects and methods needed to compete in the Olympics 
+ * This class reads from the Names.txt file to produce the names of the athletes
+ * This class reads from the events.txt file to produce the different events
  * @author Theodore Thorpe
- *
+ * @version 1.0
+ * CSCI 1082.70
+ * Professor: Lisa Minogue
  */
 public class SimulationDriver {
 	private static final int EVENTNAME = 0;
@@ -18,26 +22,40 @@ public class SimulationDriver {
 	private static String evenue;
 	private static String esport;
 	/**
-	 * reads names from the Names.txt file and returns a randomly selected name
-	 * @return name - of type String
+	 * reads events from the events.txt file and gives string values for the attributes for given line on txt file i
+	 * @param name of type String
+	 * @param venue of type String
+	 * @param sport of type String
+	 * @param i of type int
 	 */
-	public static void readEventInfo(String name, String venue,String sport) {
+	public static void readEventInfo(String name, String venue,String sport, int i) {
 		try {
 			Scanner file = new Scanner (new FileInputStream("events.txt"));
-			String line = file.nextLine();
-			String[] eventString = line.split("%");
-			name = eventString[EVENTNAME];
-			ename = name;
-			
-			venue = eventString[EVENTVENUE];
-			evenue = venue;
-			sport = eventString[EVENTSPORT];
-			esport = sport;
+			for (int j = 1; j <= i; j++) {
+				if(file.hasNextLine()) {
+					String line = file.nextLine();
+					String[] eventString = line.split("%");
+					name = eventString[EVENTNAME];
+					ename = name;
+					
+					venue = eventString[EVENTVENUE];
+					evenue = venue;
+					sport = eventString[EVENTSPORT];
+					esport = sport;
+				}
+				else {
+					System.out.println("No more events in file!");
+				}
+			}
 			
 	}catch (FileNotFoundException e ) {
 		System.out.println("File not found");
 	}
 	}
+	/**
+	 * reads names from the Names.txt file and returns a randomly selected name
+	 * @return name - of type String
+	 */
 	public static String getRandomName() {
 		
 		try {
@@ -53,188 +71,141 @@ public class SimulationDriver {
 			return name;
 		}catch (FileNotFoundException e ) {
 			return "file not found";
+		}	
 		}
-			
-		}
+	
+	/**
+	 * method to return a skill level from 1-10 randomly
+	 * @return skillLevel of type int
+	 */
 	public static int getRandomSkillLevel() {
 		Random rand = new Random();
 		int skillLevel = rand.nextInt(10)+1;
 		return skillLevel;
 		}
+	
+	
 	public static void main(String[] args) {
-		System.out.println("Driver needs to be reworked completely!!");
 		
-		
-		
+		//create the individual athletes for skateborder
 		Athlete a1 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
-		System.out.println(a1.toString());
-		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
-		athletes.add(a1);
-		readEventInfo(ename,evenue,esport);
-		Event e  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),athletes);
-		System.out.println(e.toString());
-		System.out.println(e.compete());
+		Athlete a2 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete a3 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete a4 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete a5 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete a6 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete a7 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete a8 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
 		
-		/*
-		Country c1 = Country.selectRandomCountry();
-		Country c2 = Country.selectRandomCountry();
-		Country c3 = Country.selectRandomCountry();
-		Venue v = Venue.selectRandomVenue();
+		//create the ArrayList for skateborder and add skateborders
+		ArrayList<Athlete> skateborders = new ArrayList<Athlete>();
+		skateborders.add(a1);
+		skateborders.add(a2);
+		skateborders.add(a3);
+		skateborders.add(a4);
+		skateborders.add(a5);
+		skateborders.add(a6);
+		skateborders.add(a7);
+		skateborders.add(a8);
 		
-		Athlete a1 = new Athlete("Thommas Richard",c1, getRandomSkillLevel(), 0);
-		Athlete a2 = new Athlete("Ben Cheney",c2, getRandomSkillLevel(), 0);
-		Athlete a3 = new Athlete("Austin Klecker",c3, getRandomSkillLevel(), 0);
-		
-		Athlete[] athletes = new Athlete[3];
-		athletes[0] = a1;
-		athletes[1] = a2;
-		athletes[2] = a3;
-		
-		
-		Event e = new Event("First Event", v, athletes);
-
-		System.out.println(e);
-		System.out.println(e.compete());
+		//create the event for skateborders and run the compete method
+		readEventInfo(ename,evenue,esport,1);
+		Event eskate  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),skateborders);
+		System.out.println(eskate.toString());
+		System.out.println(eskate.compete());
 		
 		
-		//Tests the getName in athlete class
-		System.out.println(a1.getName());
-		System.out.println(a2.getName());
-		System.out.println(a3.getName());
 		
-		//Tests the getCountry method in athlete class
-		System.out.println(a1.getCountry());
-		System.out.println(a2.getCountry());
-		System.out.println(a3.getCountry());
+		//create the individual athletes for marathon swimmer
+		Athlete b1 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b2 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b3 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b4 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b5 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b6 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b7 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete b8 = new MarathonSwimmer(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
 		
+		//create the ArrayList for swimmers and add them too ArrayList
+		ArrayList<Athlete> swimmers = new ArrayList<Athlete>();
+		swimmers.add(b1);
+		swimmers.add(b2);
+		swimmers.add(b3);
+		swimmers.add(b4);
+		swimmers.add(b5);
+		swimmers.add(b6);
+		swimmers.add(b7);
+		swimmers.add(b8);
 		
-		//Tests the getSport method in athlete class 
-		System.out.println(a1.getSport());
-		System.out.println(a2.getSport());
-		System.out.println(a3.getSport());
-		
-		//Tests the getSkill method in athlete class
-		System.out.println(a1.getSkill());
-		System.out.println(a2.getSkill());
-		System.out.println(a3.getSkill());
-		
-		
-		//Tests the getMedals method in athlete class
-		System.out.println(a1.getMedals());
-		System.out.println(a2.getMedals());
-		System.out.println(a3.getMedals());
-		
-		//Tests the addMedals method in the athlete class
-		a1.addMedals();
-		a2.addMedals();
-		a3.addMedals();
-		
-		System.out.println(a1.getMedals());
-		System.out.println(a2.getMedals());
-		System.out.println(a3.getMedals());
-		
-		//Tests the getName method in Event class
-		System.out.println(e.getName());
-		
-		//Tests the getSport method in Event class
-		System.out.println(e.getSport());
-		
-		//Tests the getVenue method in Event class
-		System.out.println(e.getVenue());
-		
-		//Tests the getAthetes method in Event class
-		System.out.println(e.getAthletes());
-		
-		//Tests the getCompetitors method in Event class
-		System.out.println(e.getCompetitors());
+		//create the event for skateborders and run the compete method
+		readEventInfo(ename,evenue,esport,2);
+		Event eswim  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),swimmers);
+		System.out.println("\n" +eswim.toString());
+		System.out.println(eswim.compete());
 		
 		
-		//Equals method testing 
-		if (a1 == a2) {
-			System.out.println("a1 == a2");
-		}
-		if (a1.equals(a2)) {
-			System.out.println("a1.equals(a2)");
-		}
-		if (a1 == a3) {
-			System.out.println("a1 == a2");
-		}
-		if (a1.equals(a3)) {
-			System.out.println("a1.equals(a2)");
-		}
-		if (a2 == a3) {
-			System.out.println("a1 == a2");
-		}
-		if (a2.equals(a3)) {
-			System.out.println("a1.equals(a2)");
-		}
+		//create the individual athletes for sport climber
+		Athlete c1 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c2 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c3 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c4 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c5 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c6 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c7 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete c8 = new SportClimber(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
 		
-		//Copies of athletes
-		Athlete a1Copy = new Athlete("Thommas Richard",c1,s1, a1.getSkill(), a1.getMedals());
-		Athlete a2Copy = new Athlete("Ben Cheney",c2,s1, a2.getSkill(), a2.getMedals());
-		Athlete a3Copy = new Athlete("Austin Klecker",c3,s1, a3.getSkill(), a3.getMedals());
+		//create the ArrayList for climbers and add them to ArrayList
+		ArrayList<Athlete> climbers = new ArrayList<Athlete>();
+		climbers.add(c1);
+		climbers.add(c2);
+		climbers.add(c3);
+		climbers.add(c4);
+		climbers.add(c5);
+		climbers.add(c6);
+		climbers.add(c7);
+		climbers.add(c8);
 		
 		
-		if (a1 == a1Copy) {
-			System.out.println("a1 == a1Copy");
-		}
-		if (a1.equals(a1Copy)) {
-			System.out.println("a1.equals(a1Copy)");
-		}
-		if (a1 == a2Copy) {
-			System.out.println("a1 == a2Copy");
-		}
-		if (a1.equals(a2Copy)) {
-			System.out.println("a1.equals(a2Copy)");
-		}
-		if (a1 == a3Copy) {
-			System.out.println("a1 == a3Copy");
-		}
-		if (a1.equals(a3Copy)) {
-			System.out.println("a1.equals(a3Copy)");
-		}
-		if (a2 == a1Copy) {
-			System.out.println("a2 == a1Copy");
-		}
-		if (a2.equals(a1Copy)) {
-			System.out.println("a2.equals(a1Copy)");
-		}
-		if (a2 == a2Copy) {
-			System.out.println("a2 == a2Copy");
-		}
-		if (a2.equals(a2Copy)) {
-			System.out.println("a2.equals(a2Copy)");
-		}
-		if (a2 == a3Copy) {
-			System.out.println("a2 == a3Copy");
-		}
-		if (a2.equals(a3Copy)) {
-			System.out.println("a2.equals(a3Copy)");
-		}
-		if (a3 == a1Copy) {
-			System.out.println("a3 == a1Copy");
-		}
-		if (a3.equals(a1Copy)) {
-			System.out.println("a3.equals(a1Copy)");
-		}
-		if (a3 == a2Copy) {
-			System.out.println("a3 == a2Copy");
-		}
-		if (a3.equals(a2Copy)) {
-			System.out.println("a3.equals(a2Copy)");
-		}
-		if (a3 == a3Copy) {
-			System.out.println("a3 == a3Copy");
-		}
-		if (a3.equals(a3Copy)) {
-			System.out.println("a3.equals(a3Copy)");
-		}
+		//create the event for climbers and run the compete method
+		readEventInfo(ename,evenue,esport,3);
+		Event eclimb  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),climbers);
+		System.out.println("\n" +eclimb.toString());
+		System.out.println(eclimb.compete());
+		
+		
+		//create the individual athletes for bicyclist
+		Athlete d1 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d2 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d3 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d4 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d5 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d6 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d7 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		Athlete d8 = new Bicyclist(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
+		
+		//create the ArrayList for bikers and add them to ArrayList
+		ArrayList<Athlete> bikers = new ArrayList<Athlete>();
+		bikers.add(d1);
+		bikers.add(d2);
+		bikers.add(d3);
+		bikers.add(d4);
+		bikers.add(d5);
+		bikers.add(d6);
+		bikers.add(d7);
+		bikers.add(d8);
+		
+		//create the event for bikers and run the compete method
+		readEventInfo(ename,evenue,esport,4);
+		Event ebike  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),bikers);
+		System.out.println("\n" +ebike.toString());
+		System.out.println(ebike.compete());
 		
 		
 		
 		
 		
-	}*/
+		
+		
 	
 	}
 }

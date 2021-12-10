@@ -42,6 +42,10 @@ public Event() {
 	
 	
 }
+/**
+ * updates the Sport played and validates it is of type Sport
+ * @param sport - sport being played
+ */
 public void setSport(Sport sport) {
 	try {
 		this.sport = sport;
@@ -52,7 +56,7 @@ public void setSport(Sport sport) {
 
 
 /**
- * updates the name of the event
+ * updates the name of the event and validates it is of type String
  * @param name - name of the event
  */
 public void setName(String name) {
@@ -68,7 +72,7 @@ public void setName(String name) {
 	}
 }
 /**
- * updates the venue
+ * updates the venue and validates it is of type Venue
  * @param venue - venue of the event
  */
 public void setVenue(Venue venue) {
@@ -80,6 +84,7 @@ public void setVenue(Venue venue) {
 }
 /**
  * updates the athletes competing and makes sure there is at least one athlete competing
+ * validates athletes is an ArrayList
  * @param athletes - array of athletes
  */
 public void setAthlete(ArrayList<Athlete>  athletes) {
