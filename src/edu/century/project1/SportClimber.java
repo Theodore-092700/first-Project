@@ -1,19 +1,30 @@
 package edu.century.project1;
+import java.util.InputMismatchException;
 import java.util.Random;
 
 public class SportClimber extends Athlete {
-	private int strength;
+	private double strength;
 	
-	public SportClimber(int strength) {
-		super();
+	public SportClimber(String name, Country country, double skill, int medalCounter,double strength) {
+		super(name, country, skill, medalCounter);
 		setStrength(strength);
 	}
-	public void setStrength(int strength) {
-		this.strength = strength;
+	public SportClimber() {
+		super();
+		strength = 0;
 	}
+	public void setStrength(double strength) {
+		try {
+			Random rand = new Random();
+			strength = rand.nextInt(200) + 50;
+			this.strength = strength;
+		}catch(InputMismatchException e) {
+			System.out.println("SportClimber strength is not of type double!");
+		}
+		
+	}
+	
 	public double getStrength() {
-		Random rand = new Random();
-		strength = rand.nextInt(200) + 50;
 		return strength;
 	}
 	@Override 

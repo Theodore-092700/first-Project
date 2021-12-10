@@ -1,4 +1,7 @@
 package edu.century.project1;
+
+import java.util.InputMismatchException;
+
 /**
  * This class outlines the abstract Athlete class and gives information on their: 
  * name, country, skill level, and number of gold medals won
@@ -38,28 +41,44 @@ public Athlete() {
 }
 
 public void setName(String name) {
-	if (name.length() > 1) {
-		this.name = name;
-	}
-	else {
-		this.name = "DEFAULT";
-		
+	try {
+		if (name.length() > 1) {
+			this.name = name;
+		}
+		else {
+			this.name = "DEFAULT";
+		}
+	}catch(InputMismatchException e) {
+		System.out.println("Athlete name is not of type String!");
 	}
 }
 	
 public void setCountry(Country country) {
-	this.country = country;
+	try {
+		this.country = country;
+	}catch(InputMismatchException e) {
+		System.out.println("Athlete country is not of type enum Country!");
+	}
 }
 
 public void setSkill(double skill) {
-    if (skill >=0 && skill <= 150) {
-        this.skill = skill;
-    } else {
-        this.skill = 0;
-    }    
+	try {
+		if (skill >=0 && skill <= 1100) {
+	        this.skill = skill;
+	    } 
+		else {
+	        this.skill = 0;
+	    }
+	}catch (InputMismatchException e) {
+		System.out.println("Skill is not of type double!");
+	}
 }
 public void setMedals(int medalCounter) {
-	this.medalCounter = medalCounter;
+	try {
+		this.medalCounter = medalCounter;
+	}catch(InputMismatchException e) {
+		System.out.println("MedalCounter is not of type int!");
+	}
 }
 public void addMedals() {
 	++medalCounter;

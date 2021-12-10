@@ -1,4 +1,5 @@
 package edu.century.project1;
+import java.util.InputMismatchException;
 import java.util.Random;
 /**
  * This class outlines the Skateborder class and inherits from the Athlete class
@@ -16,11 +17,18 @@ public class Skateborder extends Athlete {
 		super(name, country, skill, medalCounter);
 		setStyle(style);
 	}
-	
+	public Skateborder() {
+		super();
+		style = 0;
+	}
 	public void setStyle(int style) {
-		Random rand = new Random();
-		style = rand.nextInt(10);
-		this.style = style;
+		try {
+			Random rand = new Random();
+			style = rand.nextInt(10);
+			this.style = style;
+		}catch(InputMismatchException e) {
+			System.out.println("style is not of type int!");
+		}
 	}
 	public int getStyle() {
 		return style;

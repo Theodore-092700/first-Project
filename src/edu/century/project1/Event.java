@@ -1,6 +1,7 @@
 package edu.century.project1;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 /**
  * This Class outlines the Event object and provides the frame for the athletes 
  * to compete and determine the winner as well as the venue and name of the event they will be competing for!!
@@ -37,12 +38,16 @@ public Event(String name, Venue venue,Sport sport,ArrayList<Athlete>  athletes) 
 public Event() {
 	name = "Default";
 	venue = Venue.selectRandomVenue();
-	
+	sport = Sport.selectRandomSport();
 	
 	
 }
 public void setSport(Sport sport) {
-	this.sport = sport;
+	try {
+		this.sport = sport;
+	}catch(InputMismatchException e) {
+		System.out.println("Event sport is not of type Sport!");
+	}
 }
 
 
@@ -51,11 +56,15 @@ public void setSport(Sport sport) {
  * @param name - name of the event
  */
 public void setName(String name) {
-	if(name.length() > 0) {
-		this.name = name;
-	}
-	else {
-		this.name = "Default";
+	try {
+		if (name.length() > 1) {
+			this.name = name;
+		}
+		else {
+			this.name = "DEFAULT";
+		}
+	}catch(InputMismatchException e) {
+		System.out.println("Athlete name is not of type String!");
 	}
 }
 /**
@@ -63,18 +72,26 @@ public void setName(String name) {
  * @param venue - venue of the event
  */
 public void setVenue(Venue venue) {
-	this.venue = venue;
+	try {
+		this.venue = venue;
+	}catch (InputMismatchException e) {
+		System.out.println("Event venue is not of Type Venue!");
+	}
 }
 /**
  * updates the athletes competing and makes sure there is at least one athlete competing
  * @param athletes - array of athletes
  */
 public void setAthlete(ArrayList<Athlete>  athletes) {
-	if (athletes.size() > 0) {
-		this.athletes = athletes;
-	}
-	else {
-		System.out.println("Competitions need at minimum One athlete to compete!!!");
+	try {
+		if (athletes.size() > 0) {
+			this.athletes = athletes;
+		}
+		else {
+			System.out.println("Competitions need at minimum One athlete to compete!!!");
+		}
+	}catch (InputMismatchException e) {
+		System.out.println("Argument passed to event athletes is not an Arraylist!");
 	}
 }
 
@@ -153,7 +170,7 @@ public Athlete compete() {
 
 @Override
 public String toString() {
-	return "Event: " + getName() + " Venue: " + getVenue() +" Sport:  "+ getSport() + " Competing Athletes: \n" + getCompetitors();
+	return "Event: " + getName() + " Venue: " + getVenue() +" Sport: "+ getSport() + " Competing Athletes: \n" + getCompetitors();
 }
 
 @Override
