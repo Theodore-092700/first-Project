@@ -39,7 +39,10 @@ public Athlete() {
 	skill = 0;
 	medalCounter = 0;
 }
-
+/**
+ * checks name is of type String then checks it
+ * @param name of type String
+ */
 public void setName(String name) {
 	try {
 		if (name.length() > 1) {
@@ -52,7 +55,10 @@ public void setName(String name) {
 		System.out.println("Athlete name is not of type String!");
 	}
 }
-	
+/**
+ * checks country is of the Country type	
+ * @param country of type Country
+ */
 public void setCountry(Country country) {
 	try {
 		this.country = country;
@@ -60,7 +66,10 @@ public void setCountry(Country country) {
 		System.out.println("Athlete country is not of type enum Country!");
 	}
 }
-
+/**
+ * checks to see if skill is within numerical bounds and is of type double
+ * @param skill of type double
+ */
 public void setSkill(double skill) {
 	try {
 		if (skill >=0 && skill <= 1100) {
@@ -73,6 +82,10 @@ public void setSkill(double skill) {
 		System.out.println("Skill is not of type double!");
 	}
 }
+/**
+ * checks to see if medalCounter is of type int 
+ * @param medalCounter
+ */
 public void setMedals(int medalCounter) {
 	try {
 		this.medalCounter = medalCounter;
@@ -80,19 +93,35 @@ public void setMedals(int medalCounter) {
 		System.out.println("MedalCounter is not of type int!");
 	}
 }
+/**
+ * method to add 1 medal when called
+ */
 public void addMedals() {
 	++medalCounter;
 }
-
+/**
+ * 
+ * @return name of type String
+ */
 public String getName() {
 	return name;
 }
+/**
+ * 
+ * @return country of type Country
+ */
 public Country getCountry() {
 	return country;
 }
-
+/**
+ * abstract method unique to all subclasses
+ * @return skill of type double
+ */
 public abstract double getSkill();
-
+/**
+ * 
+ * @return medals of type int
+ */
 public int getMedals() {
 	return medalCounter;
 }
