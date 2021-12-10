@@ -11,10 +11,33 @@ import java.util.Scanner;
  *
  */
 public class SimulationDriver {
+	private static final int EVENTNAME = 0;
+	private static final int EVENTVENUE = 1;
+	private static final int EVENTSPORT = 2;
+	private static String ename;
+	private static String evenue;
+	private static String esport;
 	/**
 	 * reads names from the Names.txt file and returns a randomly selected name
 	 * @return name - of type String
 	 */
+	public static void readEventInfo(String name, String venue,String sport) {
+		try {
+			Scanner file = new Scanner (new FileInputStream("events.txt"));
+			String line = file.nextLine();
+			String[] eventString = line.split("%");
+			name = eventString[EVENTNAME];
+			ename = name;
+			
+			venue = eventString[EVENTVENUE];
+			evenue = venue;
+			sport = eventString[EVENTSPORT];
+			esport = sport;
+			
+	}catch (FileNotFoundException e ) {
+		System.out.println("File not found");
+	}
+	}
 	public static String getRandomName() {
 		
 		try {
@@ -33,11 +56,25 @@ public class SimulationDriver {
 		}
 			
 		}
-	
+	public static int getRandomSkillLevel() {
+		Random rand = new Random();
+		int skillLevel = rand.nextInt(10)+1;
+		return skillLevel;
+		}
 	public static void main(String[] args) {
 		System.out.println("Driver needs to be reworked completely!!");
-		Athlete a1 = new Skateborder(getRandomName(),Country.selectRandomCountry(),1,2,0);
+		
+		
+		
+		Athlete a1 = new Skateborder(getRandomName(),Country.selectRandomCountry(),getRandomSkillLevel(),0,0);
 		System.out.println(a1.toString());
+		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
+		athletes.add(a1);
+		readEventInfo(ename,evenue,esport);
+		Event e  = new Event(ename,Venue.valueOf(evenue),Sport.valueOf(esport),athletes);
+		System.out.println(e.toString());
+		System.out.println(e.compete());
+		
 		/*
 		Country c1 = Country.selectRandomCountry();
 		Country c2 = Country.selectRandomCountry();
@@ -197,11 +234,7 @@ public class SimulationDriver {
 		
 		
 		
-	}
-	public static int getRandomSkillLevel() {
-		Random rand = new Random();
-		int skillLevel = rand.nextInt(10)+1;
-		return skillLevel;
 	}*/
+	
 	}
 }

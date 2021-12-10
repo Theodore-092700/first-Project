@@ -52,7 +52,7 @@ public void setCountry(Country country) {
 }
 
 public void setSkill(double skill) {
-    if (skill >=0 && skill <= 10) {
+    if (skill >=0 && skill <= 150) {
         this.skill = skill;
     } else {
         this.skill = 0;
